@@ -1,0 +1,38 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ddd9 demo/MyBlogTestsThat.cs">
+    <Files>
+      <File FileName="ddd9 demo/MyBlogTestsThat.cs" Line="37" Column="15" />
+      <File FileName="ddd9 demo/Home.cs" Line="48" Column="3" />
+      <File FileName="ddd9 demo/SeleniumXpathTutorial.cs" Line="3" Column="1" />
+      <File FileName="ddd9 demo/Blog.cs" Line="4" Column="1" />
+      <File FileName="ddd9 demo/SeleniumTutorials.cs" Line="16" Column="52" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="ddd9 demo" expanded="True">
+            <Node name="References" expanded="True" />
+            <Node name="MyBlogTestsThat.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="ConnectionManagerPad">
+        <State selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
