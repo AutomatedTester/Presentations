@@ -1,0 +1,12 @@
+body, a{
+  background-color: rgb(108, 108, 108);
+  color: white;
+  font-family: arial,sans-serif;
+}
+
+div {
+  display:block;
+  width:calc(100% - 20px);
+  padding: 10px;
+  margin: 0px 0px 20px 20px;
+}
