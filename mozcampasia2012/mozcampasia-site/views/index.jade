@@ -24,7 +24,8 @@ block content
       alert("Error: " + request.error.name);
     };
     var install = function(){
-      var request = window.navigator.mozApps.install('http://localhost:3000/manifest.webapp');
+      var manifestURL = document.location.href + 'manifest.webapp';
+      var request = window.navigator.mozApps.install(manifestURL);
       request.onsuccess = function () {
           // Save the App object that is returned
         var appRecord = this.result;
