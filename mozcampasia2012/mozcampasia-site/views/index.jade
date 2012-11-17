@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  h1= title 
+    &nbsp;&nbsp;&nbsp;
+    button(id='install', onclick='install()') Install
+  p Let's have a look at how we would go about testing web apps and what
+    | we will need. If we have already reached this stage then we have a
+    | web server running! Yay!
+  h2 Tests! We Need Tests!
+  ul
+    li One for the manifest!
+    li One for the cache
+    li One that loads a browser and moves around it!
+    li One that loads the app on a device!
+  script
+    var request = window.navigator.mozApps.getSelf();
+    request.onsuccess = function() {
+      // Pull the name of the app out of the App object
+      alert("Name of app: " + request.result.manifest.name);
+    };
+    request.onerror = function() {
+      // Display error name from the DOMError object
+      alert("Error: " + request.error.name);
+    };
+    var install = function(){
+      var request = window.navigator.mozApps.install('http://localhost:3000/manifest.webapp');
+      request.onsuccess = function () {
+          // Save the App object that is returned
+        var appRecord = this.result;
+        alert('Installation successful!')
+      };
+      request.onerror = function () {
+        // Display the error information from the DOMError object
+        alert('Install failed, error: ' + this.error.name);
+      };
+    };
