@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>A W3C Browser Automation Specification and why we need one</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+          <h1>Why we need a Browser Automation Specification</h1>
+          <p>
+          <p>
+          <h3>David Burns <br>
+              @AutomatedTester</h3>
+				</section>
+				<section>
+          <section>
+            <p>
+            <p>
+            <h2>The Web is ubiqitous!</h2>
+          </section>
+          <section>
+            <p>
+            <p>
+            <h2>The Web is the Platform!</h2>
+          </section>
+          <section>
+            <p>
+            <p>
+            <h3>There is a lot competition in the browser space</h3>
+          </section>
+          <section>
+            <img src='images/keyboard-smash.jpg' alt='keyboard being smashed'>
+            <p><small>http://www.flickr.com/photos/jronaldlee/4478655355/</small></p>
+          </section>
+          <section>
+            <h3>Oh wait... not everything has a keyboard!</h3>
+            <img src='images/phone-smash.jpg' alt='phone being smashed'>
+          </section>
+				</section>
+        <section>
+          <p>
+          <p>
+          <h2>Fortunately we have groups like WHATWG and W3C</h2>
+        </section>
+        <section>
+          <section>
+            <h2>Unfortunately automation on all these platforms <br>
+              is very ad hoc and managed by an OSS project</h2>
+          </section>
+          <section>
+            <img src='images/selenium-logo.jpg' alt='Selenium Logo'>
+          </section>
+          <section>
+            <img src='images/watir-logo.png' alt='Watir Logo'>
+          </section>
+        </section>
+				<section>
+          <section>
+            <h2>What is WebDriver?</h2>
+          </section>
+          <section>
+            <h2><a href='http://dvcs.w3.org/hg/webdriver/raw-file/tip/webdriver-spec.html'>WebDriver is becoming a standard</a></h2>
+				  </section>
+          <section>
+            <h2>Browser Vendors implementing it:</h2>
+            <h3>Mozilla</h3>
+            <h3>Google</h3>
+            <h3>Opera</h3>
+          </section>
+          <section>
+            <h2>Firefox OS is the biggest project using it!</h2>
+          </section>
+          <section>
+            <img src='images/marionette.jpg' alt='Marionette'>
+            <p><small>http://www.flickr.com/photos/eugene/18142279/sizes/m/</small>
+          </section>
+        </section>
+        <section>
+          <h2>Where are we going next?</h2>
+        </section>
+        <section>
+          <h1>Q & A</h1>
+          <h3>David Burns<br>
+              @AutomatedTester</h3>
+        </section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: 'beige', // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
