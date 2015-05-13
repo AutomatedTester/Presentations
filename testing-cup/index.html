@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>A Selenium Carol</title>
+
+		<meta name="description" content="The ghosts of past, present and future haunting Selenium">
+		<meta name="author" content="David Burns">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>A Selenium Carol</h1>
+					<h3>The past, present and future of Selenium</h3>
+					<p>
+						<small>By <a href="http://www.theautomatedtester.co.uk">David Burns</a> / <a href="http://twitter.com/automatedtester">@AutomatedTester</a></small>
+					</p>
+				</section>
+
+				<section>
+					<section>
+						<h1>The Past</h1>
+					</section>
+					<section>
+						<img src='images/browserwars.png' alt='Browser Wars' height="600">
+						<small><a href='http://maddesigns.de/mobile-browser-wars/#5'>http://maddesigns.de/mobile-browser-wars/#5</a></small>
+					</section>
+					<section>
+						<h1>B * T * P</h1>
+						<h1>1 * T * 1</h1>
+						<h3>B is the number of browsers</h3>
+						<h3>T is the number of test cases</h3>
+						<h3>P is the number of platforms</h3>
+					</section>
+					<section>
+						<img src='images/phoenix_on_fire_by_amorphisss-d8extbh.jpg' alt='Pheonix on fire'>
+						<small><a href='http://fc06.deviantart.net/fs70/i/2015/022/1/f/phoenix_on_fire_by_amorphisss-d8extbh.jpg'>
+							http://fc06.deviantart.net/fs70/i/2015/022/1/f/phoenix_on_fire_by_amorphisss-d8extbh.jpg</a></small>
+					</section>
+					<section>
+					  <img src='images/qa.gif' alt='QA Gets the build' height=600 width=600>
+					</section>
+					<section>
+						<img src='images/homer_bug.gif' alt='Homer finds one bug which is actually hundred of bugs'>
+					</section>
+					<section>
+						<h2>Selenium created</h3>
+						<h5>*sound of angelic trumpets*</h5>
+					</section>
+					<section>
+						<img src='images/topio_3.jpg' alt='humanoid robot'>
+					</section>
+					<section>
+						<h2>The community grew and so did the tools that people made</h2>
+						<ul>
+							<li>IDE</li>
+							<li>RC</li>
+							<li>Grid</li>
+						<ul>
+					</section>
+					<section data-markdown>
+						<script type='text/template'>
+							#Demo
+							```
+from selenium import selenium
+sel = selenium('localhost', 4444,
+               '*firefox', 'http://www.theautomatedtester.co.uk')
+sel.start()
+sel.open('/')
+sel.click("//a[@href='/blog/2015/marionette-where-we-are.html']")
+sel.stop()```
+						</script>
+					</section>
+					<section>
+						<img src='images/robot-161582_640.png' alt='rusty robot'>
+						<small><a href='http://pixabay.com/p-161582/'>http://pixabay.com/p-161582/?no_redirect</a></small>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>The Present</h1>
+					</section>
+					<section>
+						<img src='images/knife-fight-o.gif' alt='knife fight'>
+					</section>
+					<section>
+						<h1>Merging</h1>
+					</section>
+					<section>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>
+						<p>Proper programming techniques...</p>
+						<p class='fragment'>like object orientation...</p>
+						<p class='fragment'>and using better sematics on client languages</p>
+						<p class='fragment'>finally!!!!1</p>
+					</section>
+					<section>
+						<h2>Support for modern browsers</h2>
+						<ul>
+							<li>ChromeDriver</li>
+							<li>InternetExplorerDriver</li>
+							<li>FirefoxDriver</li>
+							<li>SafariDriver</li>
+							<li>OperaDriver</li>
+						</ul>
+					</section>
+					<section data-markdown>
+						<script type='text/template'>
+							## Demo!
+							```
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+driver = webdriver.Firefox()
+driver.get('http://www.theautomatedtester.co.uk')
+all_links = driver.find_elements(By.TAG_NAME, 'a')
+print all_links[40].text
+```
+						</script>
+					</section>
+					<section data-markdown>
+					<script type='text/template'>
+						## Demo!
+						```
+driver.get('http://www.theautomatedtester.co.uk/demo1.html')
+canvas = driver.find_element_by_id("tutorial")
+drawing = ActionChains(driver)\
+          .click_and_hold(canvas)\
+          .move_by_offset(-40, -60)\
+          .move_by_offset(130, 120)\
+          .move_by_offset(200, 200)\
+          .release(canvas)
+#Now we know what we want to happen, let's perform the actions
+drawing.perform()
+
+							```
+						</script>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>The future</h1>
+					</section>
+					<section>
+						<h2>Previous wars and fueds have taken a lot out of us</h2>
+					</section>
+					<section>
+						<img src='images/food_on_floor.jpg' alt='W3C WebDriver Group eating on the floor'>
+					</section>
+					<section>
+						<img src='images/whiteboard_w3c.jpg' alt='W3C WebDriver Group at the whiteboard'>
+					</section>
+					<section>
+						<img src='images/tpac_2014.jpg' alt='W3C WebDriver Group at TPAC 2014'>
+					</section>
+					<section>
+						<h2>Browser Vendors are committed to making WebDriver great</h2>
+						<p>We have implementations that have been released by:
+							<ul>
+								<li>Opera (a Presto release and an Android)</li>
+								<li>Chrome</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h2>Browser Vendors are committed to making WebDriver great</h2>
+						<p>Implementations being developed by:
+							<ul>
+								<li>Microsoft for Edge</li>
+								<li>Mozilla for Gecko products
+									<ul>
+										<li>Desktop</li>
+										<li>Android</li>
+										<li>Firefox OS</li>
+									</ul>
+								</li>
+							</ul>
+					</section>
+					<section>
+						<h3>DEMO!</h3>
+					</section>
+					<section>
+						<h3>What about Mobile?</h3>
+						<h5>After all... Mobile is the future! Right?</h5>
+					</section>
+					<section>
+						<h3>Mobile Automation Frameworks are now battle hardened</h3>
+						<h5>Tools like:</h5>
+						<ul>
+							<li>Selendroid</li>
+							<li>iOSDriver</li>
+							<li>Appium</li>
+						</ul>
+					</section>
+					<section data-markdown>
+						<script type='text/template'>
+							##DEMO!
+
+							```
+@Test
+public void testFindElementsAndType() {
+    WebElement inputField = driver.findElement(By.id("my_text_field"));
+    Assert.assertEquals("true", inputField.getAttribute("enabled"));
+
+    Assert.assertEquals("Selendroid", inputField.getText());
+}
+							```
+						</script>
+					</section>
+					<section>
+					</section>
+				</section>
+				<section>
+					<h1>Thank You</h1>
+					<h5><a href='http://www.theautomatedtester.co.uk'>David Burns</a> / <a href='https://twitter.com/automatedtester'>@AutomatedTester</a></h5>
+
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
