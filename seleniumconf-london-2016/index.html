@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Is it or is it not really visible… Selenium’s flawed vision</title>
+
+		<meta name="description" content="Is it or is it not really visible… Selenium’s flawed vision">
+		<meta name="author" content="David Burns">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Is it or is it not really visible… Selenium’s flawed vision</h1>
+					<p>
+						<a href="https://twitter.com/AutomatedTester">@AutomatedTester</a>
+
+				</section>
+				<section>
+					<section>
+						<p style="color:yellow">Once upon a time, in a galaxy...<br/> well our galaxy,
+							and when I say a time <br>I mean about a decade ago
+						<aside class="notes">
+							Once upon a time, in a galaxy right here, about 10 years ago we all know
+							that WebDriver was created.
+
+							When it was created the internet was a much simpler place. HTML syntax
+							was simple and building web pages wasn’t that difficult. You knew that
+							if you wanted to do something fancy like animations you will have do some
+							amazing JavaScript, and know that it wouldn’t work in all browsers because
+							standards were more like guidelines than… standards I guess.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>How do browsers render web pages</h1>
+						<aside class="notes">
+								Before we go any further with how Selenium’s “vision” works it would be
+								good to get a better understanding of how web sites are rendered in a browser.
+						</aside>
+					</section>
+					<section>
+						<img src="http://www.reactiongifs.com/r/mgc.gif" alt="Man doing a sign for magic" />
+						<aside class="notes">
+							A lot like magic... stuff comes in and boom it's right there... right there on the page
+							MAGIC!
+
+							No?
+						</aside>
+					</section>
+					<section>
+						<h2>Ok... Not Really but it can feel like that.</h2>
+						<aside class="notes">
+							Ok... Web pages do not get rendered by magic on the page. They go through a complex set of steps
+							before we see the page.
+
+							When you navigate to a web page the first that happens, well after all of the networking and SSL
+							work is done, is the html parser. Since most html out there has something that makes it invalid,
+							from the wrong headers to missing tags.
+						</aside>
+					</section>
+					<section>
+							<h2>Let's build a DOM tree</h2>
+							<aside class="notes">
+								This allows the browsers to start building up a DOM tree. For those who don’t know what a DOM Tree
+								is, it is a tree-like representation of elements from the page. In Web Driver terms, when you do
+								`driver.find_element(“id”, “foo”)` what is returned is a DOM element.
+							</aside>
+					</section>
+					<section data-markdown>
+
+						```
+						&lt;html&gt;
+						  &lt;head&gt;
+								&lt;title&gt;My Title&lt;/title&gt;
+							&lt;/head&gt;
+							&lt;body&gt;
+								&lt;h1&gt;A heading&lt;/h1&gt;
+								&lt;a href="#"&gt;link text&lt;/a&gt;
+							&lt;/body&gt;
+						&lt;/html&gt;
+						```
+					</section>
+					<section>
+						<img src="images/DOM-model.png" alt="A Tree view of the DOM" />
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>We need to figure out what it needs to render</h1>
+					</section>
+					<section>
+						<h1>Display List needs generating</h1>
+						<aside class="notes">
+							A display list is a sequence of graphics commands that can be used
+							to render the page to the screen or other output devices. The information
+							used to create the display list is based off various CSS Standards.
+
+							When it starts working browsers will do either top-down traversals
+							(pre-ordering) or bottom-up traversals (post-ordering). The browser
+							will probably do a few traversals to get the display list. This is
+							because there are there are different things that need to get applied
+							 at different times. Browsers try do this super fast because there is
+							 a perceived speed of the browser in how quickly  a page renders.
+						</aside>
+					</section>
+					<section data-markdown>
+						```
+						│  │  ├─ Text @ TypedRect(96.65px×13.983333333333333px at (694.85px,1237.6333333333334px)) ClippingRegion::Max StackingContext: StackingContextId(4643281648) ScrollRoot: ScrollRootId(0)
+						│  │  ├─ SolidColor rgba(0, 0, 0, 0) @ TypedRect(27.466666666666665px×13.983333333333333px at (729.4333333333333px,1257.6333333333334px)) ClippingRegion::Max StackingContext: StackingContextId(4643281648) ScrollRoot: ScrollRootId(0)
+						│  │  ├─ Text @ TypedRect(27.466666666666665px×13.983333333333333px at (729.4333333333333px,1257.6333333333334px)) ClippingRegion::Max StackingContext: StackingContextId(4643281648) ScrollRoot: ScrollRootId(0)
+						│  │  ├─ SolidColor rgba(0, 0, 0, 0) @ TypedRect(154.15px×50px at (203.65px,1274.6333333333334px)) ClippingRegion::Max StackingContext: StackingContextId(4643282032) ScrollRoot: ScrollRootId(0)
+						│  │  ├─ SolidColor rgba(0, 0, 0, 0) @ TypedRect(124.15px×40px at (218.65px,1274.6333333333334px)) ClippingRegion::Max StackingContext: StackingContextId(4643282032) ScrollRoot: ScrollRootId(0)
+						│  │  ├─ Text @ TypedRect(61.68333333333333px×13.983333333333333px at (249.88333333333333px,1277.6333333333334px)) ClippingRegion::Max StackingContext: StackingContextId(4643282032) ScrollRoot: ScrollRootId(0)
+						│  │  ├─ Text @ TypedRect(86.4px×13.983333333333333px at (237.51666666666668px,1297.6333333333334px)) ClippingRegion::Max StackingContext: StackingContextId(4643282032) ScrollRoot: ScrollRootId(0)
+						│  │  └─ PopStackingContext(StackingContextId(0) StackingContext: StackingContextId(0) ScrollRoot: ScrollRootId(0)
+						```
+					</section>
+					<section>
+						<h1>Things that browsers don't do when building display lists</h1>
+						<aside class="notes">
+							When all the up and down and round about is completed then we have a display list and it looks
+							like the snippet about. It says what is a text node, what is a div, what colour it is.
+
+							The browser then tries to apply some optimizations that would prevent
+							the graphics code from doing over draws. Over draws is where it would
+							draw something in some pixel and then draw over it with an element that
+							is in a z-index that puts it higher or more “visible”.
+						</aside>
+					</section>
+					<section>
+						<h1>Ta Da! A web page is rendered.</h1>
+						<aside class="notes">
+							With all of this information it does what every good developer does
+							to QA, it throws it over the wall and prays the right thing is happening.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>So... What does Selenium do?</h1>
+						<aside class="notes">
+							Well... a group of engineers tried to reverse engineer what a display might do but...
+							remember how I said that things were thrown over the wall when rendering is called?
+							Edges cases were there but it was somethig that we could deal with. To be honest
+							covering the 80% case would be great and good enough
+						</aside>
+					</section>
+					<section>
+
+							element.is_displayed()
+
+						<aside class="notes">
+							So… when WebDriver tried to work out whether an element was “visible”
+							or not it would do some checks and based on some heuristics on how
+							things are rendered it would give you an answer. Web Pages, as I mentioned
+							before, were simpler in their structure so WebDriver would do the following:
+
+
+						</aside>
+					</section>
+					<section>
+						<ul>
+							<li>Get a list of all elements between the element being tested for
+								  visibility and the document root along a branch of the tree.
+							<li>Loop through the list, if not visible return false
+								<ul>
+									<li>checking if the element is displayed or if they visible.
+									<li>Work through elements that might have an opacity of 0 since thats not visible
+								</ul>
+						</ul>
+						<aside class="notes">
+							* Get a list of all elements between the element being tested for
+								visibility and the document root along a branch of the tree.
+							* Loop through the list, if not visible return false
+							** checking if the element is displayed or if they visible.
+							** Work through elements that might have an opacity of 0 since thats not visible
+						</aside>
+					</section>
+					<section>
+						<img src="images/DOM-model.png" alt="A Tree view of the DOM" />
+					</section>
+					<section>
+						<h1>Easy... right?</h1>
+						<aside class="notes">
+							So… this looks simple, it looks at a few basic items and gives you an answer.
+							Unfortunately… webpages aren’t that basic. Web Pages are not just items in their
+							own branches and then there are times where people do things in weird ways to
+							get around browser bugs.
+
+							For the most part the Selenium project had CSS 2.1 support nailed.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>CSS WG didnt stop working...</h1>
+						<aside class="notes">
+							While we have been waiting to see what other issues could come up and the edge cases
+							that we missed the CSS WG were working to make the web platform more efficient with
+							it’s rendering and layout of elements on the page.
+
+							Well it was until you could start doing animations in CSS.
+
+							Those sons... and daughters... of probably really nice people refused
+							to rest on their laurels, they continued to make things better...
+							Dammit!
+
+							Stop making the web platform more efficient and faster... stop making
+							hard things for developers easy... STOP!
+
+							Stop breaking our hacky way of working out visibility browser companies
+							with your need to make things easier and more efficient!
+
+							Luckily… well some might say it’s lucky… Web Developers can be a little
+							slow to add these new features to their sites.
+						</aside>
+					</section>
+					<section>
+						<h1>"Edge cases, it's all bloody edge cases"</h1>
+						<h2>Daniel Wagner-Hall, Initial ChromeDriver Creator</h2>
+						<aside class="notes">
+							When Daniel was doing his internship at Google, he was creating the first
+							chromedriver. One day, while Daniel was working on the implementation,
+							he slams his hands on the desk and yells, "Edge cases, it's all bloody edge cases".
+
+							And with visibility, it's all bloody edge cases. Horrific edge cases where our view of
+							how the browser is rendering things is changing... details of the display list are no longer
+							valid from our previous thoughts... we are living in a world where everything is a horrific
+							edge case.
+
+							So... what about the edge cases...
+							Well it was until Mozilla decided to make a mobile operating system and that,
+							my friends, is where things started going horribly wrong!
+
+							Mozilla wanted to create an OS that used web technologies so that people
+							already had their apps, they were called web pages! Mozilla invested in making
+							Gecko more efficient. They started being clever and millennial, using all the
+							new shiny technologies… Open Source Hipsters… using new technologies making the
+							web better… making WebDriver’s life incredibly harder.
+
+							So… David, Can we see an example?
+
+							Of course!
+						</aside>
+					</section>
+					<section>
+						<img src="images/css_transform_to_nowhere.jpeg" alt="Element transformed off the page" />
+						<aside class="notes">
+							So here we have an example of an element that displaying way off on the side there, now
+							if I were to interact with it with Selenium, with either sendKeys or click, we would be scrolled to it.
+							but... the bloody thing is not scrollable.
+
+							Now... when transforms first came to the web... they were totally not giving the
+							right answer... Drivers would say that was visible... something off the screen
+							that couldnt be scrolled too... A False Positive... dammit...
+
+							Why is this a false positive? When we did our algorithm, we were looking for specific
+							traits of elements. These are different types css properties that we were looking for, like position,
+							but not for transforms in this case.
+
+							So when we started walking the tree, and the visibility checking code would do a lot of walking of
+							the tree (as an aside this is not the most efficient code) doing checks about position but...
+							not in the way that we can think of. It was checking, can we scroll to it and then didnt check we
+							had scrolled... then checked for a position css property and then the usual visibility properties.
+
+						</aside>
+					</section>
+					<section>
+						<h1>Who wants to see another example and this is still an issue?</h1>
+					</section>
+					<section>
+						<span class="fragment fade-in">
+        			<span class="fragment" style='display:block;background:green;'>&nbsp;</span>
+							<span class="fragment" style='display:block;background:red;position:relative;top:-50px'>&nbsp;</span>
+							<pre class="fragment" >
+&lt;span&gt;
+  &lt;span style='display:block;background:green;'&gt;&nbsp;&lt;/span&gt;
+  &lt;span style='display:block;background:red;position:relative;top:-50px'&gt;&nbsp;&lt;/span&gt;
+&lt;/span&gt;
+							</pre>
+    				</span>
+
+					</section>
+				</section>
+				<section style="text-align: left;">
+					<h1>THE END</h1>
+					<p>
+						David Burns - <a href="https://twitter.com/AutomatedTester">@AutomatedTester</a>
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
