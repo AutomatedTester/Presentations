@@ -49,9 +49,18 @@
 				</section>
 				<section>
 					<section>
-						<p style="color:yellow;transform-origin: 50% 100%;transform: perspective(300px) rotateX(25deg);">
-							Once upon a time, in a galaxy...<br/> well our galaxy,
-							and when I say a time <br>I mean about a decade ago
+						<style media="screen">
+						@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+						p#start {
+							font-size: 200%;
+							font-weight: 400;
+							margin: 20% auto;
+							color: #4ee;
+							animation: intro 2s ease-out;
+						}
+						</style>
+						<p id="start">A long time ago in a galaxy...</p>
+
 						<aside class="notes">
 							Once upon a time, in a galaxy right here, about 10 years ago we all know
 							that WebDriver was created.
@@ -110,7 +119,7 @@
 					</section>
 					<section data-markdown>
 						# Example HTML
-						```
+						```html
 						&lt;html&gt;
 						  &lt;head&gt;
 								&lt;title&gt;My Title&lt;/title&gt;
@@ -129,6 +138,19 @@
 				<section>
 					<section>
 						<h1>We need to figure out what it needs to render</h1>
+						<aside class="notes">
+							Now we need to figure out what and how we need to render the DOM.
+							what happens is that once the html has been parsed, it then tells the
+							browser that yo, we need more things... go fetch them for us! And that's
+							what it does. It gets the css files, it gets the images, it gets anything else
+							that is supposed to be pulled from the cloud. Everything is in the cloud these
+							days.
+
+							Once the CSS files and images are there we parse them and build up...
+							who wants to guess what it builds?
+							Not a tree... It gets information gets ready to start doing things
+							so it can render. Awesome... right! Awesome
+						</aside>
 					</section>
 					<section>
 						<h1>Display List needs generating</h1>
