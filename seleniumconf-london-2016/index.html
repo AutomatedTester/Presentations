@@ -102,14 +102,6 @@
 						</aside>
 					</section>
 					<section>
-						<img src="images/parse_html.jpg" alt="Parse html source" />
-						<aside class="notes">
-							So the browser parses the html, and it doesnt do it via regex, just so you know...
-							regex is good but everything about html makes it hard. Most web pages create invalid html
-							one way or another. Once it has parsed the html, it moves to the next step.
-						</aside>
-					</section>
-					<section>
 							<h2>Let's build a DOM tree</h2>
 							<aside class="notes">
 								This allows the browsers to start building up a DOM tree. For those who don’t know what a DOM Tree
@@ -343,8 +335,37 @@
 &lt;/span&gt;
 							</pre>
     				</span>
-
 					</section>
+					<section>
+						<h1>Examples</h1>
+					</section>
+				</section>
+				<section>
+					<section>
+					<h1>What does this mean for the WebDriver Specifcation?</h1>
+					<aside class="notes">
+						So... what does this mean for the specification? Well... this is a really
+						interesting topic to be quite honest.
+					</aside>
+					</section>
+					<section>
+						<ul>
+							<li>Is this what Selenium does currently?
+								<ul>
+									<li>If, yes, do all drivers do that?
+								</ul>
+							<li>Do we want to do this still? Or could we improve it?
+							<li>Has someone else already specified this?
+						</ul>
+						<aside class="notes">
+							When we look at describing how something should work in the specification,
+							we need to make sure of the following:
+							1) Is this what Selenium does currently?
+						</aside>
+					</section>
+				</section>
+				<section>
+					<img src="images/bugzilla_is_displayed.jpg" alt="Bugzilla Bug 865232 - Marionette is displayed issue" />
 				</section>
 				<section style="text-align: left;">
 					<h1>THE END</h1>
